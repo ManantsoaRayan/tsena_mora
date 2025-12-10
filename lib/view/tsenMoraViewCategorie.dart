@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tsena_mora/view/appBarBottomBar.dart';
+import 'package:tsena_mora/view/appColors.dart';
 import 'package:tsena_mora/viewModel/viewModelCategorie.dart';
 
 class TsenaMoraViewCategorie extends StatefulWidget{
@@ -33,12 +34,12 @@ class TsenaMoraViewState extends State<TsenaMoraViewCategorie>{
                   children: [
                     ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all(Color(0XFFFF7A7A)),
+                        backgroundColor: WidgetStateProperty.all(AppColors.primary),
                         elevation: WidgetStateProperty.all(0),
                       ),
                       onPressed: (){}, 
                       child: Text(
-                        "Categorien 1",
+                        "Categorie 1",
                         style: TextStyle(
                           color: Colors.white
                         ),
@@ -46,12 +47,12 @@ class TsenaMoraViewState extends State<TsenaMoraViewCategorie>{
                     ),
                     ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all(Color(0XFFFF7A7A)),
+                        backgroundColor: WidgetStateProperty.all(AppColors.primary),
                         elevation: WidgetStateProperty.all(0),
                       ),
                       onPressed: (){}, 
                       child: Text(
-                        "Categorien 2",
+                        "Categorie 2",
                         style: TextStyle(
                           color: Colors.white
                         ),
@@ -59,12 +60,12 @@ class TsenaMoraViewState extends State<TsenaMoraViewCategorie>{
                     ),
                     ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all(Color(0XFFFF7A7A)),
+                        backgroundColor: WidgetStateProperty.all(AppColors.primary),
                         elevation: WidgetStateProperty.all(0),
                       ),
                       onPressed: (){}, 
                       child: Text(
-                        "Categorien 3",
+                        "Categorie 3",
                         style: TextStyle(
                           color: Colors.white
                         ),
@@ -99,7 +100,7 @@ class TsenaMoraViewState extends State<TsenaMoraViewCategorie>{
                           borderRadius: BorderRadius.circular(0)
                         ),
                         clipBehavior: Clip.antiAlias,
-                        color: Color(0XFFFF7A7A),
+                        color: AppColors.primary,
                         child: Container(
                           decoration: BoxDecoration(
                             image: DecorationImage(image: AssetImage(categorie.imageCategorie), fit: BoxFit.cover, opacity: 0.1)

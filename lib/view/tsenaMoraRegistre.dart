@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-//import 'package:tsena_mora/model/tsenaMoraModel.dart';
+import 'package:tsena_mora/view/appColors.dart';
 import 'package:tsena_mora/view/wave.dart';
 import 'package:tsena_mora/viewModel/tsenaMoraViewModel.dart';
 
@@ -12,8 +12,6 @@ class TsenaMoraRegistre extends StatefulWidget{
 }
 
 class TsenaMoraViewState extends State<TsenaMoraRegistre>{
-
-
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -26,7 +24,7 @@ class TsenaMoraViewState extends State<TsenaMoraRegistre>{
         children: [
           Expanded(
             child: WaveHeader(
-              color: Color(0XFFFF7A7A),
+              color: AppColors.primary,
               height: 260,
             ),
           ),
@@ -76,7 +74,7 @@ class TsenaMoraViewState extends State<TsenaMoraRegistre>{
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all(Color(0XFFFF7A7A)),
+                        backgroundColor: WidgetStateProperty.all(AppColors.primary),
                         foregroundColor: WidgetStateProperty.all(Colors.white)
                       ),
                       onPressed: () {
@@ -126,7 +124,7 @@ class TsenaMoraViewState extends State<TsenaMoraRegistre>{
                         child: Text(
                           "Sing in?",
                           style: TextStyle(
-                            color: Color(0XFFFF7A7A)
+                            color: AppColors.primary
                           ),
                         )
                       )

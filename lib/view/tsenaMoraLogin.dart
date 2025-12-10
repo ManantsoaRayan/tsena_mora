@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tsena_mora/view/appColors.dart';
 import 'package:tsena_mora/view/wave.dart';
 //import 'package:tsena_mora/view/tsenMoraView.dart';
 import 'package:tsena_mora/viewModel/tsenaMoraViewModel.dart';
@@ -26,7 +27,7 @@ class TsenaMoraViewState extends State<TsenaMoraLogin>{
         children:[
           Expanded(
             child: const WaveHeader(
-              color: Color(0XFFFF7A7A),
+              color: AppColors.primary,
               height: 260,
             ),
           ),
@@ -78,7 +79,7 @@ class TsenaMoraViewState extends State<TsenaMoraLogin>{
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all(Color(0XFFFF7A7A)),
+                        backgroundColor: WidgetStateProperty.all(AppColors.primary),
                         foregroundColor: WidgetStateProperty.all(Colors.white)
                       ),
                       onPressed: () {
@@ -88,16 +89,34 @@ class TsenaMoraViewState extends State<TsenaMoraLogin>{
                     
                         bool userExists = tsenaMoraViewModel.authenticateUser(userName);
                         bool passwordExists = tsenaMoraViewModel.authenticatePassword(password);
-                    
-                        if (userExists && passwordExists) {
+
+                        if(userName.isEmpty || password.isEmpty){
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Connection à echouer'),
+                                content: const Text('Veuilleze remplire tous les champs'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          ); 
+                        }else if (userExists && passwordExists) {
                           Navigator.pushReplacementNamed(context, '/home', arguments: userName);
                         }else{
                           showDialog(
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                title: const Text('Login Failed'),
-                                content: const Text('User namae or password incorrect'),
+                                title: const Text('Echec de connection'),
+                                content: const Text('User name ou mdp incorecte'),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
@@ -128,7 +147,7 @@ class TsenaMoraViewState extends State<TsenaMoraLogin>{
                         child: Text(
                           "Sing up?",
                           style: TextStyle(
-                            color: Color(0XFFFF7A7A)
+                            color: AppColors.primary
                           ),
                         )
                       )

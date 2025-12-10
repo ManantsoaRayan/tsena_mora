@@ -4,39 +4,35 @@
         "imageCategorie": "assets/imageCategorie/pc.jpg"
     },
     {
-        "categorie" : "Informatique",
-        "imageCategorie": "assets/imageCategorie/pc.jpg"
+        "categorie" : "Batiment",
+        "imageCategorie": "assets/imageCategorie/batiment.jpg"
     },
     {
-        "categorie" : "Informatique",
-        "imageCategorie": "assets/imageCategorie/pc.jpg"
+        "categorie" : "PPN",
+        "imageCategorie": "assets/imageCategorie/ppn.jpg"
     },
     {
-        "categorie" : "Informatique",
-        "imageCategorie": "assets/imageCategorie/pc.jpg"
+        "categorie" : "Patisserie",
+        "imageCategorie": "assets/imageCategorie/patisserie.jpg"
     },
     {
-        "categorie" : "Informatique",
-        "imageCategorie": "assets/imageCategorie/pc.jpg"
+        "categorie" : "Cuisine",
+        "imageCategorie": "assets/imageCategorie/cuisine.jpg"
     },
     {
-        "categorie" : "Informatique",
-        "imageCategorie": "assets/imageCategorie/pc.jpg"
+        "categorie" : "Fourniture scolaire",
+        "imageCategorie": "assets/imageCategorie/scolaire.jpg"
     },
     {
-        "categorie" : "Informatique",
-        "imageCategorie": "assets/imageCategorie/pc.jpg"
+        "categorie" : "Boucherie",
+        "imageCategorie": "assets/imageCategorie/boucherie.jpg"
     },
     {
-        "categorie" : "Informatique",
-        "imageCategorie": "assets/imageCategorie/pc.jpg"
+        "categorie" : "Meuble",
+        "imageCategorie": "assets/imageCategorie/meuble.jpg"
     },
     {
-        "categorie" : "Informatique",
-        "imageCategorie": "assets/imageCategorie/pc.jpg"
-    },
-    {
-        "categorie" : "Informatique",
-        "imageCategorie": "assets/imageCategorie/pc.jpg"
+        "categorie" : "Jouet",
+        "imageCategorie": "assets/imageCategorie/jouet.jpg"
     }
 ]

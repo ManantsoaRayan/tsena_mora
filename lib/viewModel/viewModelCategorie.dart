@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tsena_mora/model/tsenaMoraModel.dart';
+import 'package:tsena_mora/model/categorieModel.dart';
 
 class ViewModelCategorie extends ChangeNotifier{
 
-  TsenaMoraModel modelCategorie  = TsenaMoraModel();
-  List <TsenaMora> listCategorie =[];
+  CategorieModel modelCategorie  = CategorieModel();
+  List <CategorieClass> listCategorie =[];
   bool isLoading = true;
 
 
@@ -17,6 +17,6 @@ class ViewModelCategorie extends ChangeNotifier{
   }
 
 
-  List <TsenaMora> get getListCategorie => listCategorie;
+  List <CategorieClass> get getListCategorie => listCategorie;
 
 }

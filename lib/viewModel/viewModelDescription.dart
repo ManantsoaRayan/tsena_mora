@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tsena_mora/model/tsenaMoraModel.dart';
+import 'package:tsena_mora/model/descriptionModel.dart';
 
 class ViewModelDescription extends ChangeNotifier{
 
-  TsenaMoraModel modelDescription  = TsenaMoraModel();
-  List <TsenaMora> listDescription = [];
+  DescriptionModel modelDescription  = DescriptionModel();
+  List <DescriptionClass> listDescription = [];
   bool isLoading = true;
 
 
@@ -16,6 +16,6 @@ class ViewModelDescription extends ChangeNotifier{
     });
   }
 
-  List <TsenaMora> get getListDescription => listDescription;
+  List <DescriptionClass> get getListDescription => listDescription;
 
 }

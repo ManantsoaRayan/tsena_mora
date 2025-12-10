@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tsena_mora/view/appBarBottomBar.dart';
+import 'package:tsena_mora/view/appColors.dart';
 import 'package:tsena_mora/viewModel/viewModelDescription.dart';
 
 class TsenaMoraViewDescription extends StatefulWidget{
@@ -37,12 +38,8 @@ class TsenaMoraViewDescriptionState extends State<TsenaMoraViewDescription>{
                     return Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0),
-                        side: BorderSide(
-                          width: 1,
-                          color: Color(0xFFFF6F6F)
-                        )
                       ),
-                      color: Color(0xFFFF6F6F),
+                      color: AppColors.primary,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
