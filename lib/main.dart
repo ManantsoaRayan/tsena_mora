@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         ),
         bottomNavigationBar: BottomNavigationBar(items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
-          BottomNavigationBarItem(icon: Icon(Icons.chat), label: "chat")
+          BottomNavigationBarItem(icon: Icon(Icons.chat), label: "chatt")
         ]),
 
         body: Center(
