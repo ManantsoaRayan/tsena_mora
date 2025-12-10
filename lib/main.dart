@@ -1,40 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tsena_mora/view/tsenMoraViewCategorie.dart';
+import 'package:tsena_mora/view/tsenaMoraLogin.dart';
+import 'package:tsena_mora/view/tsenaMoraRegistre.dart';
+import 'package:tsena_mora/view/tsenaMoraViewDescription.dart';
+import 'package:tsena_mora/view/tsenaMoraWelcome.dart';
+import 'package:tsena_mora/viewModel/tsenaMoraViewModel.dart';
+import 'package:tsena_mora/viewModel/viewModelCategorie.dart';
+import 'package:tsena_mora/viewModel/viewModelDescription.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("My first flutter app"),
-          backgroundColor: Colors.blue,
-        ),
-        bottomNavigationBar: BottomNavigationBar(items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
-          BottomNavigationBarItem(icon: Icon(Icons.chat), label: "chatt")
-        ]),
-
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Hello Flutter",
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 20,),
-              ElevatedButton(onPressed: () {
-                  print("button pressed");
-                }, child: Text("Click me"))
-
-            ],
-          ),
-        ),
-      ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => TsenaMoraViewModel(),),
+        ChangeNotifierProvider(create: (_) => ViewModelCategorie()..fetchCategorie()),
+        ChangeNotifierProvider(create: (_) => ViewModelDescription()..fetchDescription())
+      ],
+      child: MaterialApp(
+        initialRoute: '/',
+        routes: {
+          '/login': (context) => const TsenaMoraLogin(),
+          '/home': (context) => const TsenaMoraViewCategorie(),
+          '/registre': (context) => const TsenaMoraRegistre(),
+          '/tsenaMoraWelcome': (context) => TsenaMoraWelcome(),
+          '/description': (context) => TsenaMoraViewDescription()
+        },
+        home: TsenaMoraWelcome(),
+      )
     );
   }
 }

@@ -1,0 +1,38 @@
+[
+    {
+        "categorie" : "Informatique",
+        "imageCategorie": "assets/imageCategorie/pc.jpg"
+    },
+    {
+        "categorie" : "Batiment",
+        "imageCategorie": "assets/imageCategorie/batiment.jpg"
+    },
+    {
+        "categorie" : "PPN",
+        "imageCategorie": "assets/imageCategorie/ppn.jpg"
+    },
+    {
+        "categorie" : "Patisserie",
+        "imageCategorie": "assets/imageCategorie/patisserie.jpg"
+    },
+    {
+        "categorie" : "Cuisine",
+        "imageCategorie": "assets/imageCategorie/cuisine.jpg"
+    },
+    {
+        "categorie" : "Fourniture scolaire",
+        "imageCategorie": "assets/imageCategorie/scolaire.jpg"
+    },
+    {
+        "categorie" : "Boucherie",
+        "imageCategorie": "assets/imageCategorie/boucherie.jpg"
+    },
+    {
+        "categorie" : "Meuble",
+        "imageCategorie": "assets/imageCategorie/meuble.jpg"
+    },
+    {
+        "categorie" : "Jouet",
+        "imageCategorie": "assets/imageCategorie/jouet.jpg"
+    }
+]
