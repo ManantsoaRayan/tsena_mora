@@ -1,0 +1,42 @@
+[
+    {
+        "price" : "1 000 000 ar",
+        "description": "Pc Gamer",
+        "image": "assets/imageDescription/pc.jpg"
+    },
+        {
+        "price" : "1 000 000 ar",
+        "description": "Pc Gamer",
+        "image": "assets/imageDescription/pc2.jpeg"
+    },
+    {
+        "price" : "1 000 000 ar",
+        "description": "Pc Gamer",
+        "image": "assets/imageDescription/pc3.jpeg"
+    },
+    {
+        "price" : "1 000 000 ar",
+        "description": "Pc Gamer",
+        "image": "assets/imageDescription/pc1.jpeg"
+    },
+    {
+        "price" : "1 000 000 ar",
+        "description": "Pc Gamer",
+        "image": "assets/imageDescription/pc4.jpeg"
+    },
+    {
+        "price" : "1 000 000 ar",
+        "description": "Pc Gamer",
+        "image": "assets/imageDescription/pc5.jpeg"
+    },
+    {
+        "price" : "1 000 000 ar",
+        "description": "Pc Gamer",
+        "image": "assets/imageDescription/pc.jpg"
+    },
+    {
+        "price" : "1 000 000 ar",
+        "description": "Pc Gamer",
+        "image": "assets/imageDescription/pc.jpg"
+    }
+]
