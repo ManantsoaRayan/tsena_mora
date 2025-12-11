@@ -6,23 +6,13 @@ class TsenaMoraViewModel extends ChangeNotifier {
   final TsenaMoraModel tsenaModel = TsenaMoraModel();
 
   List<TsenaMora> get userList => tsenaModel.getUserList;
-  List<TsenaMora> get passwordList => tsenaModel.getPasswordList;
 
-  void addUser(String user) {
-    tsenaModel.addUser(user);
+  void addUser(String user  , String password) {
+    tsenaModel.addUser(user, password);
     notifyListeners();
   }
 
-  void addPassword(String password) {
-    tsenaModel.addPassword(password);
-    notifyListeners();
-  }
-
-  bool authenticateUser(String userName) {
-    return tsenaModel.authenticateUser(userName);
-  }
-
-  bool authenticatePassword(String password) {
-    return tsenaModel.authenticatePassword(password);
+  bool authenticateUser(String userName, String password) {
+    return tsenaModel.authenticateUser(userName, password);
   }
 }

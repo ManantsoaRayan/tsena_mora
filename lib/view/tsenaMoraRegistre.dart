@@ -81,19 +81,35 @@ class TsenaMoraViewState extends State<TsenaMoraRegistre>{
                         String userName = userController.text;
                         String password = passwordController.text;  
                         if(userName.isNotEmpty && password.isNotEmpty){
-                          tsenaMoraViewModel.addUser(userName);
-                          tsenaMoraViewModel.addPassword(password);
+                          tsenaMoraViewModel.addUser(userName, password);
                           Navigator.pushNamed(
                             context, '/home',
                             arguments: userName
+                          );
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Succes'),
+                                content: const Text('Utilisateur ajouter'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
                           );
                         }else{
                           showDialog(
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                title: const Text('Login Failed'),
-                                content: const Text('Veuillez remlire tous les champ'),
+                                title: const Text('Echec d\'ajout'),
+                                content: const Text('Veuillez remplire tous les champs'),
                                 actions: [
                                   TextButton(
                                     onPressed: () {

@@ -3,11 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:tsena_mora/view/tsenMoraViewCategorie.dart';
 import 'package:tsena_mora/view/tsenaMoraLogin.dart';
 import 'package:tsena_mora/view/tsenaMoraRegistre.dart';
-import 'package:tsena_mora/view/tsenaMoraViewDescription.dart';
+import 'package:tsena_mora/view/tsenaMoraViewProduct.dart';
 import 'package:tsena_mora/view/tsenaMoraWelcome.dart';
 import 'package:tsena_mora/viewModel/tsenaMoraViewModel.dart';
 import 'package:tsena_mora/viewModel/viewModelCategorie.dart';
-import 'package:tsena_mora/viewModel/viewModelDescription.dart';
+import 'package:tsena_mora/viewModel/viewModelProduct.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => TsenaMoraViewModel(),),
         ChangeNotifierProvider(create: (_) => ViewModelCategorie()..fetchCategorie()),
-        ChangeNotifierProvider(create: (_) => ViewModelDescription()..fetchDescription())
+        ChangeNotifierProvider(create: (_) => ViewModelProduct()..fetchDescription())
       ],
       child: MaterialApp(
         initialRoute: '/',

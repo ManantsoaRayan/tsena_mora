@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tsena_mora/view/appColors.dart';
 import 'package:tsena_mora/view/wave.dart';
 
 class TsenaMoraWelcome extends StatelessWidget {
@@ -12,7 +13,7 @@ class TsenaMoraWelcome extends StatelessWidget {
         children: [
           const WaveHeader(
             height: 350,
-            color: Color(0xFFFF6F6F),
+            color: AppColors.primary,
           ),
 
           const SizedBox(height: 20),
@@ -23,7 +24,7 @@ class TsenaMoraWelcome extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Welcome",
+                  "Bienvenue",
                   style: TextStyle(
                     fontSize: 36,
                     fontWeight: FontWeight.bold,
@@ -31,7 +32,7 @@ class TsenaMoraWelcome extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  "Lorem ipsum dolor sit amet consectetur.\nLorem id sit",
+                  "Application pour votre course",
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.black54,
@@ -47,7 +48,7 @@ class TsenaMoraWelcome extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 40),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFFF6F6F),
+                backgroundColor: AppColors.primary,
                 padding: const EdgeInsets.symmetric(
                     horizontal: 60, vertical: 15),
                 shape: RoundedRectangleBorder(

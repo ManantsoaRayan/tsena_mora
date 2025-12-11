@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tsena_mora/view/appColors.dart';
 import 'package:tsena_mora/view/wave.dart';
-//import 'package:tsena_mora/view/tsenMoraView.dart';
 import 'package:tsena_mora/viewModel/tsenaMoraViewModel.dart';
 
 class TsenaMoraLogin extends StatefulWidget{
@@ -14,8 +13,10 @@ class TsenaMoraLogin extends StatefulWidget{
 
 class TsenaMoraViewState extends State<TsenaMoraLogin>{
 
+
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool _obscure = true;
   
   @override
   Widget build(BuildContext context){
@@ -65,11 +66,21 @@ class TsenaMoraViewState extends State<TsenaMoraLogin>{
                   SizedBox(height: 20,),
                   TextField(
                     controller: passwordController,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
+                    obscureText: _obscure,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
                       labelText: 'Password',
-                      prefixIcon: Icon(Icons.password)
+                      prefixIcon: const Icon(Icons.password),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscure ? Icons.visibility : Icons.visibility_off,
+                        ),
+                        onPressed: (){
+                          setState(() {
+                            _obscure = !_obscure;
+                          });
+                        }
+                      )
                     ),
                   ),
                   
@@ -86,16 +97,13 @@ class TsenaMoraViewState extends State<TsenaMoraLogin>{
                                     
                         String userName = userController.text;
                         String password = passwordController.text;
-                    
-                        bool userExists = tsenaMoraViewModel.authenticateUser(userName);
-                        bool passwordExists = tsenaMoraViewModel.authenticatePassword(password);
 
                         if(userName.isEmpty || password.isEmpty){
                           showDialog(
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                title: const Text('Connection à echouer'),
+                                title: const Text('Echec de connection'),
                                 content: const Text('Veuilleze remplire tous les champs'),
                                 actions: [
                                   TextButton(
@@ -108,7 +116,10 @@ class TsenaMoraViewState extends State<TsenaMoraLogin>{
                               );
                             },
                           ); 
-                        }else if (userExists && passwordExists) {
+                        }
+                    
+                        bool userExists = tsenaMoraViewModel.authenticateUser(userName, password);
+                        if (userExists) {
                           Navigator.pushReplacementNamed(context, '/home', arguments: userName);
                         }else{
                           showDialog(
@@ -116,7 +127,7 @@ class TsenaMoraViewState extends State<TsenaMoraLogin>{
                             builder: (context) {
                               return AlertDialog(
                                 title: const Text('Echec de connection'),
-                                content: const Text('User name ou mdp incorecte'),
+                                content: const Text('Nom d\'utilisateur pou mots de pass incorecte'),
                                 actions: [
                                   TextButton(
                                     onPressed: () {

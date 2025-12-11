@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tsena_mora/view/appBarBottomBar.dart';
 import 'package:tsena_mora/view/appColors.dart';
-import 'package:tsena_mora/viewModel/viewModelDescription.dart';
+import 'package:tsena_mora/viewModel/viewModelProduct.dart';
 
 class TsenaMoraViewDescription extends StatefulWidget{
   const TsenaMoraViewDescription({super.key});
@@ -15,11 +15,11 @@ class TsenaMoraViewDescriptionState extends State<TsenaMoraViewDescription>{
   AppBarBottomBar appBottom  = AppBarBottomBar();
   @override
   Widget build(BuildContext context) {
-    final viewModelDescription = Provider.of<ViewModelDescription>(context);
+    final viewModelProduct = Provider.of<ViewModelProduct>(context);
     return Scaffold(
       appBar: appBottom.appBar(),
 
-      body:(viewModelDescription.isLoading)
+      body:(viewModelProduct.isLoading)
         ?Center(child: CircularProgressIndicator(),)
         :Padding(
           padding: EdgeInsets.all(16.0),
@@ -32,9 +32,9 @@ class TsenaMoraViewDescriptionState extends State<TsenaMoraViewDescription>{
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10
                   ),
-                  itemCount: viewModelDescription.getListDescription.length, 
+                  itemCount: viewModelProduct.getListDescription.length, 
                   itemBuilder: (context, index){
-                    final description = viewModelDescription.getListDescription[index];
+                    final description = viewModelProduct.getListDescription[index];
                     return Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0),

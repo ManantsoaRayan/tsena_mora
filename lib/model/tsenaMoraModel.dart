@@ -4,32 +4,27 @@ class TsenaMora{
 
   TsenaMora({
     this.userName = '',
-    this.password = '',
+    this.password = ''
   });
 }
 
 class TsenaMoraModel {
-  List <TsenaMora> userList = [TsenaMora(userName: 'Alice',)];
-  List <TsenaMora> passwordList = [TsenaMora(password: '1234',)];
+  List <TsenaMora> userList = [
+    TsenaMora(userName: 'Alice', password: "1234"),
+    TsenaMora(userName: "Toky", password: "12345678")
+  ];
 
   List <TsenaMora> get getUserList => List.unmodifiable(userList);
-  List <TsenaMora> get getPasswordList => List.unmodifiable(passwordList);
 
-  void addUser(String user) {
-    userList.add(TsenaMora(userName: user));
+  void addUser(String user, String password) {
+    userList.add(TsenaMora(userName: user, password:  password));
   }
 
-  void addPassword(String password) {
-    passwordList.add(TsenaMora(password: password));
-  }
 
- bool authenticateUser(String userName) {
-    //retourne true si l'utilisateur existe dans la liste
-    return userList.any((user) => user.userName == userName);
-  }
-
-  bool authenticatePassword(String password) {
-    //retourne true si le mot de passe existe dans la liste
-    return passwordList.any((pass) => pass.password == password);
+  bool authenticateUser(String userName ,String password) {
+    final userFound  = userList.firstWhere(
+      (user) => user.userName == userName,
+    ); 
+    return userFound.password == password;
   }
 }

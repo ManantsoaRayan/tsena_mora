@@ -56,7 +56,7 @@ flutter:
     - assets/imageDescription/
     - assets/imageCategorie/
     - assets/categorie.json
-    - assets/description.json
+    - assets/product.json
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
