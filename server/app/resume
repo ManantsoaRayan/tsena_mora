@@ -1,0 +1,16 @@
+1/13/26
+
+What works today? 
+- Finally finished the scraping for one website and put those data inside a csv
+- Site scraped: BonMarcher.mg
+
+What's broken ?
+- Nothing is broken
+
+What's next tomorrow ?
+- Do a new scrapping for another website to have vast dataset
+- Start structuring the backend
+- Create the database 
+- Create the linear model
+- Score the data
+- Create an api to get the product data
