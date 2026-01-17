@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tsena_mora/view/appBarBottomBar.dart';
-import 'package:tsena_mora/view/appColors.dart';
-import 'package:tsena_mora/viewModel/viewModelCategorie.dart';
+import 'package:tsena_mora/view/app_bar_bottom_bar.dart';
+import 'package:tsena_mora/view/app_colors.dart';
+import 'package:tsena_mora/viewModel/view_model_categorie.dart';
 
 class TsenaMoraViewCategorie extends StatefulWidget{
   const TsenaMoraViewCategorie({super.key});

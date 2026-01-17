@@ -1,53 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tsena_mora/view/appColors.dart';
+import 'package:tsena_mora/view/app_colors.dart';
 import 'package:tsena_mora/view/wave.dart';
-import 'package:tsena_mora/viewModel/tsenaMoraViewModel.dart';
+import 'package:tsena_mora/viewModel/user_view_model.dart';
 
-class TsenaMoraLogin extends StatefulWidget{
-  const TsenaMoraLogin({super.key});
+class TsenaMoraRegistre extends StatefulWidget {
+  const TsenaMoraRegistre({super.key});
 
   @override
-  State<TsenaMoraLogin> createState() => TsenaMoraViewState();
+  State<TsenaMoraRegistre> createState() => TsenaMoraViewState();
 }
 
-class TsenaMoraViewState extends State<TsenaMoraLogin>{
-
-
+class TsenaMoraViewState extends State<TsenaMoraRegistre> {
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  bool _obscure = true;
-  
-  @override
-  Widget build(BuildContext context){
 
+  @override
+  Widget build(BuildContext context) {
     final tsenaMoraViewModel = Provider.of<TsenaMoraViewModel>(context);
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children:[
-          Expanded(
-            child: const WaveHeader(
-              color: AppColors.primary,
-              height: 260,
-            ),
-          ),
+        children: [
+          Expanded(child: WaveHeader(color: AppColors.primary, height: 260)),
+
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
                 Text(
-                  "Sing in",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24
-                  ),   
+                  "Sing up",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                 ),
               ],
             ),
           ),
 
-          SizedBox(height: 20,),
+          SizedBox(height: 20),
 
           Expanded(
             child: Padding(
@@ -59,52 +48,44 @@ class TsenaMoraViewState extends State<TsenaMoraLogin>{
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Username',
-                      prefixIcon: Icon(Icons.account_circle_rounded)
+                      prefixIcon: Icon(Icons.account_circle),
                     ),
-                    
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 20),
                   TextField(
                     controller: passwordController,
-                    obscureText: _obscure,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
                       labelText: 'Password',
-                      prefixIcon: const Icon(Icons.password),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _obscure ? Icons.visibility : Icons.visibility_off,
-                        ),
-                        onPressed: (){
-                          setState(() {
-                            _obscure = !_obscure;
-                          });
-                        }
-                      )
+                      prefixIcon: Icon(Icons.password),
                     ),
                   ),
-                  
-                  SizedBox(height: 20,),
-
+                  SizedBox(height: 20),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all(AppColors.primary),
-                        foregroundColor: WidgetStateProperty.all(Colors.white)
+                        backgroundColor: WidgetStateProperty.all(
+                          AppColors.primary,
+                        ),
+                        foregroundColor: WidgetStateProperty.all(Colors.white),
                       ),
                       onPressed: () {
-                                    
                         String userName = userController.text;
                         String password = passwordController.text;
-
-                        if(userName.isEmpty || password.isEmpty){
+                        if (userName.isNotEmpty && password.isNotEmpty) {
+                          tsenaMoraViewModel.addUser(userName, password);
+                          Navigator.pushNamed(
+                            context,
+                            '/home',
+                            arguments: userName,
+                          );
                           showDialog(
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                title: const Text('Echec de connection'),
-                                content: const Text('Veuilleze remplire tous les champs'),
+                                title: const Text('Succes'),
+                                content: const Text('Utilisateur ajouter'),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
@@ -115,19 +96,16 @@ class TsenaMoraViewState extends State<TsenaMoraLogin>{
                                 ],
                               );
                             },
-                          ); 
-                        }
-                    
-                        bool userExists = tsenaMoraViewModel.authenticateUser(userName, password);
-                        if (userExists) {
-                          Navigator.pushReplacementNamed(context, '/home', arguments: userName);
-                        }else{
+                          );
+                        } else {
                           showDialog(
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                title: const Text('Echec de connection'),
-                                content: const Text('Nom d\'utilisateur pou mots de pass incorecte'),
+                                title: const Text('Echec d\'ajout'),
+                                content: const Text(
+                                  'Veuillez remplire tous les champs',
+                                ),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
@@ -141,36 +119,33 @@ class TsenaMoraViewState extends State<TsenaMoraLogin>{
                           );
                         }
                       },
-                      child: const Text('Login'),
+                      child: const Text('Register'),
                     ),
                   ),
 
-                  SizedBox(height: 20,),
+                  SizedBox(height: 20),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Dont have account?"),
+                      Text("Have a count?"),
                       TextButton(
-                        onPressed:(){
-                          Navigator.pushNamed(context, '/registre');
-                        }, 
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/login');
+                        },
                         child: Text(
-                          "Sing up?",
-                          style: TextStyle(
-                            color: AppColors.primary
-                          ),
-                        )
-                      )
+                          "Sing in?",
+                          style: TextStyle(color: AppColors.primary),
+                        ),
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
           ),
-
         ],
-      )
+      ),
     );
   }
 }

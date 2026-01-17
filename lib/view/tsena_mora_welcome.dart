@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tsena_mora/view/appColors.dart';
+import 'package:tsena_mora/view/app_colors.dart';
 import 'package:tsena_mora/view/wave.dart';
 
 class TsenaMoraWelcome extends StatelessWidget {
@@ -11,10 +11,7 @@ class TsenaMoraWelcome extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          const WaveHeader(
-            height: 350,
-            color: AppColors.primary,
-          ),
+          const WaveHeader(height: 350, color: AppColors.primary),
 
           const SizedBox(height: 20),
 
@@ -25,18 +22,12 @@ class TsenaMoraWelcome extends StatelessWidget {
               children: [
                 Text(
                   "Bienvenue",
-                  style: TextStyle(
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 10),
                 Text(
                   "Application pour votre course",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
+                  style: TextStyle(fontSize: 16, color: Colors.black54),
                 ),
               ],
             ),
@@ -50,13 +41,15 @@ class TsenaMoraWelcome extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primary,
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 60, vertical: 15),
+                  horizontal: 60,
+                  vertical: 15,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
               onPressed: () {
-                Navigator.pushNamed(context, '/login');
+                Navigator.pushNamed(context, '/description');
               },
               child: const Row(
                 mainAxisSize: MainAxisSize.min,
@@ -66,14 +59,13 @@ class TsenaMoraWelcome extends StatelessWidget {
                     style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                   SizedBox(width: 10),
-                  Icon(Icons.arrow_forward, color: Colors.white)
+                  Icon(Icons.arrow_forward, color: Colors.white),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
   }
 }
-

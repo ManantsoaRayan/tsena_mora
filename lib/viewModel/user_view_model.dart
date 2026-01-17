@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tsena_mora/model/tsenaMoraModel.dart';
+import 'package:tsena_mora/model/user_model.dart';
 
 class TsenaMoraViewModel extends ChangeNotifier {
 

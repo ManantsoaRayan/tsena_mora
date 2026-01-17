@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tsena_mora/model/categorieModel.dart';
+import 'package:tsena_mora/model/categorie_model.dart';
 
 class ViewModelCategorie extends ChangeNotifier{
 

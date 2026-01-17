@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:tsena_mora/view/appColors.dart';
+import 'package:tsena_mora/view/app_colors.dart';
 
 class AppBarBottomBar {
 
   PreferredSizeWidget appBar(){
     return AppBar(
       automaticallyImplyLeading: false,
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.textLight,
       title: const Text(
         'Tsena Mora',
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 24,
-          color: Colors.white
+          color: Colors.black
         ),
       ),
       centerTitle: true,
@@ -23,13 +22,13 @@ class AppBarBottomBar {
   Widget bottomBar(BuildContext context){
     return BottomAppBar(
       height: 50,
-      color: AppColors.primary,
+      color: AppColors.textLight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.list, color: Colors.white,)),
-          IconButton(onPressed: (){}, icon: Icon(Icons.chat, color: Colors.white)),
-          IconButton(onPressed: () => Navigator.pushNamed(context, '/categorie'), icon: Icon(Icons.home, color: Colors.white)),
+          IconButton(onPressed: (){}, icon: Icon(Icons.list, color: Colors.black, )),
+          IconButton(onPressed: (){}, icon: Icon(Icons.chat, color: Colors.black)),
+          IconButton(onPressed: () => Navigator.pushNamed(context, '/home'), icon: Icon(Icons.home, color: Colors.black)),
 
           IconButton(
             onPressed: (){
@@ -46,7 +45,7 @@ class AppBarBottomBar {
                 }
               );
             }, 
-            icon: Icon(Icons.logout_rounded, color: Colors.white)
+            icon: Icon(Icons.logout_rounded, color: Colors.black)
           ),
         ],
       ),

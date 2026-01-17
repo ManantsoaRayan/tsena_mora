@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tsena_mora/view/tsenMoraViewCategorie.dart';
-import 'package:tsena_mora/view/tsenaMoraLogin.dart';
-import 'package:tsena_mora/view/tsenaMoraRegistre.dart';
-import 'package:tsena_mora/view/tsenaMoraViewProduct.dart';
-import 'package:tsena_mora/view/tsenaMoraWelcome.dart';
-import 'package:tsena_mora/viewModel/tsenaMoraViewModel.dart';
-import 'package:tsena_mora/viewModel/viewModelCategorie.dart';
-import 'package:tsena_mora/viewModel/viewModelProduct.dart';
+import 'package:tsena_mora/view/tsena_mora_view_categorie.dart';
+import 'package:tsena_mora/view/tsena_mora_login.dart';
+import 'package:tsena_mora/view/tsena_mora_registre.dart';
+import 'package:tsena_mora/view/tsena_mora_view_product.dart';
+import 'package:tsena_mora/view/tsena_mora_welcome.dart';
+import 'package:tsena_mora/viewModel/user_view_model.dart';
+import 'package:tsena_mora/viewModel/view_model_categorie.dart';
+import 'package:tsena_mora/viewModel/view_model_product.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,9 +20,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => TsenaMoraViewModel(),),
-        ChangeNotifierProvider(create: (_) => ViewModelCategorie()..fetchCategorie()),
-        ChangeNotifierProvider(create: (_) => ViewModelProduct()..fetchDescription())
+        ChangeNotifierProvider(create: (_) => TsenaMoraViewModel()),
+        ChangeNotifierProvider(
+          create: (_) => ViewModelCategorie()..fetchCategorie(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ViewModelProduct()..fetchDescription(),
+        ),
       ],
       child: MaterialApp(
         initialRoute: '/',
@@ -31,11 +35,10 @@ class MyApp extends StatelessWidget {
           '/home': (context) => const TsenaMoraViewCategorie(),
           '/registre': (context) => const TsenaMoraRegistre(),
           '/tsenaMoraWelcome': (context) => TsenaMoraWelcome(),
-          '/description': (context) => TsenaMoraViewDescription()
+          '/description': (context) => TsenaMoraViewDescription(),
         },
         home: TsenaMoraWelcome(),
-      )
+      ),
     );
   }
 }
-
