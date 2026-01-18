@@ -46,9 +46,7 @@ class ProductModel {
             price: (json['price'] as num?)?.toDouble() ?? 0.0,
             description: json['description'] ?? '',
             image: json['image'] ?? '',
-            rating:
-                (json['score'] as num?)?.toDouble() ??
-                0.0, // ← le score devient rating
+            rating: ((json['score'] as num?)?.toDouble() ?? 0.0) / 20.0,
           );
         }).toList();
       } else {
