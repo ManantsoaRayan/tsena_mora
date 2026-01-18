@@ -9,6 +9,7 @@ import 'package:tsena_mora/viewModel/view_model_product.dart';
 
 class ComparateView extends StatefulWidget {
   const ComparateView({super.key});
+
   @override
   State<ComparateView> createState() => ComparateViewState();
 }
@@ -18,6 +19,7 @@ class ComparateViewState extends State<ComparateView> {
   Widget build(BuildContext context) {
     final vm = Provider.of<ViewModelProduct>(context);
     final product = vm.selectProduct!;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -26,7 +28,7 @@ class ComparateViewState extends State<ComparateView> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsetsGeometry.all(8),
+        padding: const EdgeInsets.all(8.0),
         child: Card(
           elevation: 1,
           shape: RoundedRectangleBorder(
@@ -34,20 +36,34 @@ class ComparateViewState extends State<ComparateView> {
           ),
           clipBehavior: Clip.antiAlias,
           color: AppColors.textLight,
-          //color: AppColors.primary,
           child: ListView(
-            //crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              // Image principale du produit sélectionné
               ClipRRect(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(12),
                   bottomRight: Radius.circular(12),
                 ),
                 child: AspectRatio(
                   aspectRatio: 1,
-                  child: Image.asset(product.image, fit: BoxFit.cover),
+                  child: Image.network(
+                    product.image,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return const Center(child: CircularProgressIndicator());
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Icon(
+                        Icons.broken_image,
+                        size: 50,
+                        color: Colors.grey,
+                      );
+                    },
+                  ),
                 ),
               ),
+
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -68,7 +84,7 @@ class ComparateViewState extends State<ComparateView> {
                       ),
                     ),
                     Text(
-                      "${product.price}",
+                      "Ar ${product.price.toStringAsFixed(0)}",
                       style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold),
                     ),
                     RatingBarIndicator(
@@ -80,7 +96,7 @@ class ComparateViewState extends State<ComparateView> {
                       unratedColor: Colors.grey,
                     ),
 
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     Text(
                       "Similar To ",
                       style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold),
@@ -89,12 +105,14 @@ class ComparateViewState extends State<ComparateView> {
                 ),
               ),
 
+              // Grille des produits similaires
               MasonryGridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
+                gridDelegate:
+                    const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                    ),
                 itemCount: vm.getListDescription.length,
                 itemBuilder: (context, index) {
                   final productCo = vm.getListDescription[index];
@@ -105,9 +123,11 @@ class ComparateViewState extends State<ComparateView> {
                     image: product.image,
                     rating: product.rating,
                   );
+
                   if (productCo.title == product.title) {
                     return const SizedBox.shrink();
                   }
+
                   return Card(
                     elevation: 1,
                     shape: RoundedRectangleBorder(
@@ -118,15 +138,29 @@ class ComparateViewState extends State<ComparateView> {
                     child: Column(
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(12),
                             bottomRight: Radius.circular(12),
                           ),
                           child: AspectRatio(
                             aspectRatio: 1,
-                            child: Image.asset(
+                            child: Image.network(
                               productCo.image,
                               fit: BoxFit.cover,
+                              loadingBuilder:
+                                  (context, child, loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  },
+                              errorBuilder: (context, error, stackTrace) {
+                                return const Icon(
+                                  Icons.broken_image,
+                                  size: 50,
+                                  color: Colors.grey,
+                                );
+                              },
                             ),
                           ),
                         ),
@@ -151,7 +185,7 @@ class ComparateViewState extends State<ComparateView> {
                                 ),
                               ),
                               Text(
-                                "Ar:${productCo.price}",
+                                "Ar ${productCo.price.toStringAsFixed(0)}",
                                 style: GoogleFonts.aBeeZee(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -186,7 +220,7 @@ class ComparateViewState extends State<ComparateView> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
-        child: Icon(Icons.compare, color: Colors.amber),
+        child: const Icon(Icons.compare, color: Colors.amber),
       ),
     );
   }

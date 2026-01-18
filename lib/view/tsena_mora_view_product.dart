@@ -19,6 +19,7 @@ class TsenaMoraViewDescription extends StatefulWidget {
 
 class TsenaMoraViewDescriptionState extends State<TsenaMoraViewDescription> {
   AppBarBottomBar appBottom = AppBarBottomBar();
+
   @override
   Widget build(BuildContext context) {
     final viewModelProduct = Provider.of<ViewModelProduct>(context);
@@ -26,9 +27,9 @@ class TsenaMoraViewDescriptionState extends State<TsenaMoraViewDescription> {
       appBar: appBottom.appBar(),
 
       body: (viewModelProduct.isLoading)
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
                   SearchBar(
@@ -37,11 +38,11 @@ class TsenaMoraViewDescriptionState extends State<TsenaMoraViewDescription> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    elevation: WidgetStatePropertyAll(0),
-                    leading: Icon(Icons.search),
-                    hintText: "Search article " /*  */,
+                    elevation: const WidgetStatePropertyAll(0),
+                    leading: const Icon(Icons.search),
+                    hintText: "Search article",
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Expanded(
                     child: MasonryGridView.builder(
                       gridDelegate:
@@ -67,7 +68,7 @@ class TsenaMoraViewDescriptionState extends State<TsenaMoraViewDescription> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => ComparateView(),
+                                builder: (_) => const ComparateView(),
                               ),
                             );
                           },
@@ -78,20 +79,36 @@ class TsenaMoraViewDescriptionState extends State<TsenaMoraViewDescription> {
                             ),
                             clipBehavior: Clip.antiAlias,
                             color: AppColors.textLight,
-                            //color: AppColors.primary,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 ClipRRect(
-                                  borderRadius: BorderRadius.only(
+                                  borderRadius: const BorderRadius.only(
                                     bottomLeft: Radius.circular(12),
                                     bottomRight: Radius.circular(12),
                                   ),
                                   child: AspectRatio(
                                     aspectRatio: 1,
-                                    child: Image.asset(
+                                    child: Image.network(
                                       description.image,
                                       fit: BoxFit.cover,
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                            if (loadingProgress == null)
+                                              return child;
+                                            return const Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            );
+                                          },
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                            return const Icon(
+                                              Icons.broken_image,
+                                              size: 50,
+                                              color: Colors.grey,
+                                            );
+                                          },
                                     ),
                                   ),
                                 ),
@@ -116,7 +133,7 @@ class TsenaMoraViewDescriptionState extends State<TsenaMoraViewDescription> {
                                         ),
                                       ),
                                       Text(
-                                        "Ar:${description.price}",
+                                        "Ar ${description.price.toStringAsFixed(0)}",
                                         style: GoogleFonts.aBeeZee(
                                           fontWeight: FontWeight.bold,
                                         ),

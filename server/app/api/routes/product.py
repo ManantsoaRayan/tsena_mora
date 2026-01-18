@@ -6,7 +6,9 @@ from app.services.scoring_service import ScoringService
 
 router = APIRouter(prefix="/products", tags=["Products"])
 
-product_repo = ProductRepository("/data/products.csv")
+# ← Utilise ton fichier JSON ici
+product_repo = ProductRepository("data/products.json")  # adapte le chemin si besoin
+
 scoring_service = ScoringService(product_repository=product_repo)
 
 
