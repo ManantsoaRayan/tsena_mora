@@ -1,0 +1,208 @@
+================================================================================
+                        NAVIGATION FLOW DIAGRAM
+================================================================================
+
+APPLICATION ROUTE STRUCTURE:
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         APP INITIALIZATION                                  │
+│                                                                              │
+│  initialRoute: "/welcome" ──→ WelcomeView (No Bottom Nav)                  │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                    ┌───────────────┼───────────────┐
+                    │               │               │
+                    ▼               ▼               ▼
+            LoginView         RegisterView    (User chooses action)
+          (No Bottom Nav)     (No Bottom Nav)
+
+
+================================================================================
+                    MAIN APPLICATION FLOW (After Auth)
+================================================================================
+
+                              BOTTOM NAV BAR
+                         (4 Tab Navigation)
+         ┌──────────────┬─────────────┬────────────────┬──────────────┐
+         │ Index: 0     │ Index: 1    │ Index: 2       │ Index: 3     │
+         │ Home         │ Search      │ Favorites      │ Profile      │
+         │ (🏠)         │ (🔍)        │ (❤️)           │ (👤)         │
+         └──────────────┴─────────────┴────────────────┴──────────────┘
+              ▲              ▲             ▲               ▲
+              │              │             │               │
+         ┌────┴────┐    ┌────┴────┐  ┌────┴────┐    ┌────┴────┐
+         │          │    │         │  │         │    │         │
+         │ HomeView │    │ Search  │  │Favorites│    │ Profile │
+         │ ✅ Ready │    │ 📋 TODO │  │✅ Ready │    │📋 TODO  │
+         │          │    │         │  │         │    │         │
+         └──────────┘    └─────────┘  └─────────┘    └─────────┘
+
+
+================================================================================
+                       DETAILED NAVIGATION FLOW
+================================================================================
+
+HOME VIEW (Index: 0)
+─────────────────────
+
+    [Home] ──Tab 0──→ Already Here (No navigation)
+       │
+       ├──Tab 1──→ pushReplacementNamed('/search')
+       │              │
+       │              └──→ [SearchView]
+       │
+       ├──Tab 2──→ pushReplacementNamed('/favorites')
+       │              │
+       │              └──→ [FavoritesView]
+       │
+       └──Tab 3──→ pushReplacementNamed('/profile')
+                      │
+                      └──→ [ProfileView]
+
+
+FAVORITES VIEW (Index: 2)
+─────────────────────────
+
+  [Favorites] ──Tab 0──→ pushReplacementNamed('/home')
+       │                 │
+       │                 └──→ [HomeView]
+       │
+       ├──Tab 1──→ pushReplacementNamed('/search')
+       │              │
+       │              └──→ [SearchView]
+       │
+       ├──Tab 2──→ Already Here (No navigation)
+       │
+       └──Tab 3──→ pushReplacementNamed('/profile')
+                      │
+                      └──→ [ProfileView]
+
+
+================================================================================
+                         NAVIGATION HELPER LOGIC
+================================================================================
+
+NavigationHelper.handleBottomNavigation() FLOW:
+───────────────────────────────────────────────
+
+START
+  │
+  ├─→ Check: index == currentIndex?
+  │         │
+  │         YES → EXIT (Don't navigate to same view)
+  │
+  └─→ NO
+      │
+      ├─→ Call onIndexChanged(index)
+      │   (Updates local _currentNavIndex via setState())
+      │
+      ├─→ Match index:
+      │   ├─ Case 0 → pushReplacementNamed('/home')
+      │   ├─ Case 1 → pushReplacementNamed('/search')
+      │   ├─ Case 2 → pushReplacementNamed('/favorites')
+      │   └─ Case 3 → pushReplacementNamed('/profile')
+      │
+      └─→ END
+
+
+================================================================================
+                    ROUTE TO INDEX MAPPING TABLE
+================================================================================
+
+getNavIndexForRoute() Reference:
+
+Route          │ Index │ View            │ Status
+───────────────┼───────┼─────────────────┼──────────────
+'/home'        │   0   │ HomeView        │ ✅ Active
+'/search'      │   1   │ SearchView      │ 📋 Placeholder
+'/favorites'   │   2   │ FavoritesView   │ ✅ Active
+'/profile'     │   3   │ ProfileView     │ 📋 Placeholder
+'/welcome'     │   -   │ WelcomeView     │ ✅ Auth Only
+'/login'       │   -   │ LoginView       │ ✅ Auth Only
+'/register'    │   -   │ RegisterView    │ ✅ Auth Only
+(unknown)      │   0   │ HomeView        │ Default
+
+
+================================================================================
+                         NAVIGATION STACK BEHAVIOR
+================================================================================
+
+Using pushReplacementNamed():
+────────────────────────────
+
+Before:  [WelcomeView] ──→ [HomeView] ──→ [HomeView]
+After:   [WelcomeView] ──→ [HomeView]
+
+Before:  [HomeView] ──→ [FavoritesView] ──→ [FavoritesView]
+After:   [HomeView] ──→ [FavoritesView]
+
+Result:  Clean navigation stack, prevents deep nesting
+
+
+================================================================================
+                            STATE MANAGEMENT
+================================================================================
+
+Each View with Bottom Nav Maintains:
+
+    int _currentNavIndex = X;  // X is the view's index (0-3)
+
+In initState():
+    _currentNavIndex = X;
+
+In _handleNavigation():
+    NavigationHelper.handleBottomNavigation(
+      context,
+      index,
+      _currentNavIndex,
+      (newIndex) {
+        setState(() {
+          _currentNavIndex = newIndex;  // Update highlight
+        });
+      },
+    );
+
+Result:  Correct tab is highlighted in bottom nav bar
+
+
+================================================================================
+                         QUICK REFERENCE GUIDE
+================================================================================
+
+View                Current Index    Tab When Selected
+────────────────────────────────────────────────────────
+HomeView            0                Home tab highlighted
+SearchView          1                Search tab highlighted
+FavoritesView       2                Favorites tab highlighted
+ProfileView         3                Profile tab highlighted
+
+
+Authentication Views (No Bottom Nav):
+WelcomeView         N/A              Initial screen
+LoginView           N/A              User login
+RegisterView        N/A              User registration
+
+
+================================================================================
+                         IMPLEMENTATION CHECKLIST
+================================================================================
+
+✅ Completed:
+   • NavigationHelper created with handleBottomNavigation()
+   • NavigationHelper created with getNavIndexForRoute()
+   • HomeView integrated with NavigationHelper
+   • FavoritesView integrated with NavigationHelper
+   • AppBottomNavBar component exists
+   • Routes configured in main.dart
+
+📋 To Do:
+   • Implement SearchView with NavigationHelper
+   • Implement ProfileView with NavigationHelper
+   • Add deep linking support (optional)
+   • Add navigation animations (optional)
+   • Add navigation analytics logging (optional)
+
+
+================================================================================
+                              END OF FLOW
+================================================================================
