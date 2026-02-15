@@ -1,6 +1,6 @@
 {
-    "name": "tsena_mora",
-    "short_name": "tsena_mora",
+    "name": "product_versus_app",
+    "short_name": "product_versus_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

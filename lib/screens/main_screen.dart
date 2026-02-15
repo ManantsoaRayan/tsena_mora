@@ -1,0 +1,52 @@
+import 'package:flutter/material.dart';
+import 'product_list_screen.dart';
+import 'settings_screen.dart';
+
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int _selectedIndex = 0;
+
+  static const List<Widget> _pages = <Widget>[
+    ProductListScreen(),
+    SettingsScreen(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: NavigationBar(
+        height: 72,
+        backgroundColor: Colors.white,
+        indicatorColor: const Color(0xFFE3F2FD),
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        selectedIndex: _selectedIndex,
+        onDestinationSelected: _onItemTapped,
+        destinations: const <NavigationDestination>[
+          NavigationDestination(
+            icon: Icon(Icons.home_outlined),
+            selectedIcon: Icon(Icons.home),
+            label: 'Accueil',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.settings_outlined),
+            selectedIcon: Icon(Icons.settings),
+            label: 'Paramètres',
+          ),
+        ],
+      ),
+    );
+  }
+}

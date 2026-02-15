@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tsena_mora/view/tsenMoraViewCategorie.dart';
-import 'package:tsena_mora/view/tsenaMoraLogin.dart';
-import 'package:tsena_mora/view/tsenaMoraRegistre.dart';
-import 'package:tsena_mora/view/tsenaMoraViewDescription.dart';
-import 'package:tsena_mora/view/tsenaMoraWelcome.dart';
-import 'package:tsena_mora/viewModel/tsenaMoraViewModel.dart';
-import 'package:tsena_mora/viewModel/viewModelCategorie.dart';
-import 'package:tsena_mora/viewModel/viewModelDescription.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'providers/product_provider.dart';
+import 'providers/user_provider.dart';
+import 'screens/splash_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,22 +16,38 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => TsenaMoraViewModel(),),
-        ChangeNotifierProvider(create: (_) => ViewModelCategorie()..fetchCategorie()),
-        ChangeNotifierProvider(create: (_) => ViewModelDescription()..fetchDescription())
+        ChangeNotifierProvider(create: (_) => ProductProvider()),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
       ],
       child: MaterialApp(
-        initialRoute: '/',
-        routes: {
-          '/login': (context) => const TsenaMoraLogin(),
-          '/home': (context) => const TsenaMoraViewCategorie(),
-          '/registre': (context) => const TsenaMoraRegistre(),
-          '/tsenaMoraWelcome': (context) => TsenaMoraWelcome(),
-          '/description': (context) => TsenaMoraViewDescription()
-        },
-        home: TsenaMoraWelcome(),
-      )
+        title: 'Tsena Mora',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0xFF1E88E5),
+            brightness: Brightness.light,
+          ),
+          useMaterial3: true,
+          textTheme: GoogleFonts.interTextTheme(),
+          scaffoldBackgroundColor: const Color(0xFFF4F7FB),
+          appBarTheme: const AppBarTheme(
+            centerTitle: false,
+            elevation: 0,
+            scrolledUnderElevation: 0,
+            backgroundColor: Colors.transparent,
+            foregroundColor: Color(0xFF102A43),
+          ),
+          cardTheme: CardThemeData(
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18),
+            ),
+            color: Colors.white,
+            margin: EdgeInsets.zero,
+          ),
+        ),
+        home: const SplashScreen(),
+      ),
     );
   }
 }
-
