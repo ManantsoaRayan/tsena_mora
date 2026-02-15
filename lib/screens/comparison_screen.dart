@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../providers/product_provider.dart';
@@ -11,15 +12,15 @@ class ComparisonScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Compare Products"),
+        title: const Text("Comparer les produits"),
         actions: [
           IconButton(
             icon: const Icon(Icons.delete_outline),
-            tooltip: "Clear Comparison",
+            tooltip: "Effacer la comparaison",
             onPressed: () {
               Provider.of<ProductProvider>(context, listen: false).clearComparison();
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Comparison list cleared")),
+                const SnackBar(content: Text("Liste de comparaison effacée")),
               );
             },
           ),
@@ -37,7 +38,7 @@ class ComparisonScreen extends StatelessWidget {
 
           if (products.isEmpty) {
             return const Center(
-              child: Text("No products selected for comparison."),
+              child: Text("Aucun produit sélectionné pour la comparaison."),
             );
           }
 
@@ -47,7 +48,7 @@ class ComparisonScreen extends StatelessWidget {
               child: DataTable(
                 columnSpacing: 20,
                 columns: [
-                  const DataColumn(label: Text("Feature", style: TextStyle(fontWeight: FontWeight.bold))),
+                  const DataColumn(label: Text("Critère", style: TextStyle(fontWeight: FontWeight.bold))),
                   ...products.map((p) => DataColumn(
                         label: SizedBox(
                           width: 150,
@@ -61,12 +62,12 @@ class ComparisonScreen extends StatelessWidget {
                 ],
                 rows: [
                   _buildImageRow(products),
-                  _buildRow("Price", products, (p) => "\$${p.price.toStringAsFixed(2)}"),
-                  _buildRow("Score", products, (p) => p.score.toStringAsFixed(1)),
-                  _buildRow("Category", products, (p) => p.categoryLevel2),
-                  _buildRow("Provider", products, (p) => p.provider),
-                  _buildRow("Stock", products, (p) => p.inStock ? "In Stock" : "Out of Stock"),
-                  _buildRow("Description", products, (p) => p.description),
+                  _buildRow("Prix", products, (p) => "MGA ${p.price.toStringAsFixed(2)}"),
+                  _buildRow("Note", products, (p) => p.score.toStringAsFixed(1)),
+                  _buildRow("Catégorie", products, (p) => p.categoryLevel2),
+                  _buildRow("Fournisseur", products, (p) => p.provider),
+                  _buildRow("Stock", products, (p) => p.inStock ? "En stock" : "Rupture de stock"),
+                  _buildRow("Description", products, (p) => p.description != "nan" ? p.description : "non disponible"),
                 ],
               ),
             ),
@@ -77,7 +78,7 @@ class ComparisonScreen extends StatelessWidget {
         onPressed: () {
            _showExplanationPopup(context);
         },
-        label: const Text("Who's the winner?"),
+        label: const Text("Qui est le gagnant ?"),
         icon: const Icon(Icons.psychology),
       ),
     );
@@ -130,7 +131,7 @@ class ComparisonScreen extends StatelessWidget {
           future: Provider.of<ProductProvider>(context, listen: false).getAdvice(),
           builder: (context, snapshot) {
             return AlertDialog(
-              title: const Text("AI Comparison Analysis"),
+              title: const Text("Analyse IA de la comparaison"),
               content: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -138,19 +139,25 @@ class ComparisonScreen extends StatelessWidget {
                     if (snapshot.connectionState == ConnectionState.waiting)
                       const Center(child: CircularProgressIndicator())
                     else if (snapshot.hasError)
-                      const Text("Error fetching advice.")
+                      const Text("Erreur lors de la récupération des conseils.")
                     else
-                      Text(
-                        snapshot.data ?? "No advice available.",
-                        style: const TextStyle(fontSize: 16),
-                      ),
+                      // Text(
+                      //   snapshot.data ?? "Aucun conseil disponible.",
+                      //   style: const TextStyle(fontSize: 16),
+                      // ),
+                      MarkdownBody(
+                        data: snapshot.data ?? "Aucun conseil disponible.",
+                        styleSheet: MarkdownStyleSheet(
+                          p: const TextStyle(fontSize: 16),
+                        ),
+                      )
                   ],
                 ),
               ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text("Close"),
+                  child: const Text("Fermer"),
                 ),
               ],
             );

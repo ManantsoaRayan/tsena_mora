@@ -7,7 +7,7 @@ import 'dart:io';
 class ApiService {
   static String get baseUrl {
     if (Platform.isAndroid) {
-      return "http://10.54.116.145:8000";
+      return "http://192.168.1.122:8000";
     }
     return "http://127.0.0.1:8000";
   }

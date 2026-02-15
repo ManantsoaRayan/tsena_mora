@@ -29,7 +29,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Settings"),
+        title: const Text("Paramètres"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -37,19 +37,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "User Location",
+              "Localisation de l'utilisateur",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             const Text(
-              "Enter your current location to calculate distance from products.",
+              "Entrez votre position actuelle pour calculer la distance par rapport aux produits.",
               style: TextStyle(color: Colors.grey),
             ),
             const SizedBox(height: 16),
             TextField(
               controller: _locationController,
               decoration: const InputDecoration(
-                labelText: "Location (City, Country)",
+                labelText: "Localisation (Ville, Pays)",
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.location_on),
               ),
@@ -62,10 +62,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Provider.of<UserProvider>(context, listen: false)
                       .setLocation(_locationController.text);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Location saved successfully!")),
+                    const SnackBar(content: Text("Localisation enregistrée avec succès !")),
                   );
                 },
-                child: const Text("Save Location"),
+                child: const Text("Enregistrer la localisation"),
               ),
             ),
           ],

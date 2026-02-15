@@ -4,11 +4,13 @@ import '../services/api_service.dart';
 
 class ProductProvider with ChangeNotifier {
   final ApiService _apiService = ApiService();
-  
+
   List<Product> _allProducts = [];
   List<Product> _filteredProducts = [];
   List<Product> _comparisonList = [];
-  
+  String? _comparisonCategoryLevel1;
+  String? _comparisonCategoryLevel2;
+
   bool _isLoading = false;
   String? _selectedCategoryLevel1;
   String? _selectedCategoryLevel2;
@@ -18,6 +20,8 @@ class ProductProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get selectedCategoryLevel1 => _selectedCategoryLevel1;
   String? get selectedCategoryLevel2 => _selectedCategoryLevel2;
+  String? get comparisonCategoryLevel1 => _comparisonCategoryLevel1;
+  String? get comparisonCategoryLevel2 => _comparisonCategoryLevel2;
 
   // Get unique Level 1 categories
   List<String> get categoryLevel1Options {
@@ -34,10 +38,13 @@ class ProductProvider with ChangeNotifier {
         .toList();
   }
 
-  Future<void> fetchProducts() async {
+  Future<void> fetchProducts({bool forceRefresh = false}) async {
+    if (_isLoading) return;
+    if (!forceRefresh && _allProducts.isNotEmpty) return;
+
     _isLoading = true;
     notifyListeners();
-    
+
     try {
       _allProducts = await _apiService.getProducts();
       _applyFilters();
@@ -74,23 +81,42 @@ class ProductProvider with ChangeNotifier {
     }).toList();
   }
 
-  void addToCompare(Product product) {
-    if (!_comparisonList.contains(product)) {
-      _comparisonList.add(product);
-      notifyListeners();
+  bool canAddToCompare(Product product) {
+    if (_comparisonList.isEmpty) return true;
+    return product.categoryLevel1 == _comparisonCategoryLevel1 &&
+        product.categoryLevel2 == _comparisonCategoryLevel2;
+  }
+
+  bool addToCompare(Product product) {
+    if (_comparisonList.contains(product)) return true;
+    if (!canAddToCompare(product)) return false;
+
+    if (_comparisonList.isEmpty) {
+      _comparisonCategoryLevel1 = product.categoryLevel1;
+      _comparisonCategoryLevel2 = product.categoryLevel2;
     }
+
+    _comparisonList.add(product);
+    notifyListeners();
+    return true;
   }
 
   void removeFromCompare(Product product) {
     _comparisonList.remove(product);
+    if (_comparisonList.isEmpty) {
+      _comparisonCategoryLevel1 = null;
+      _comparisonCategoryLevel2 = null;
+    }
     notifyListeners();
   }
 
   void clearComparison() {
     _comparisonList.clear();
+    _comparisonCategoryLevel1 = null;
+    _comparisonCategoryLevel2 = null;
     notifyListeners();
   }
-  
+
   bool isInCompare(Product product) {
     return _comparisonList.contains(product);
   }

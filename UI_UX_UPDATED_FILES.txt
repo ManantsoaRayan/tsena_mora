@@ -1,0 +1,6 @@
+lib/main.dart
+lib/screens/main_screen.dart
+lib/screens/product_list_screen.dart
+lib/screens/product_detail_screen.dart
+lib/widgets/product_card.dart
+UI_UX_UPDATED_FILES.txt
